@@ -1,3 +1,5 @@
 framework:
+    translator: ~
+
     router:
         strict_requirements: true
