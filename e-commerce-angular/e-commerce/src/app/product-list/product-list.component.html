@@ -1,0 +1,29 @@
+<div class="container">
+  <span class="help is-info" *ngIf="isLoading">Loading...</span>
+  <table class="table" *ngIf="!isLoading">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Poids</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.id }}</td>
+        <td>{{ product.nom }}</td>
+        <td>{{ product.prix }}</td>
+        <td>{{ product.poids }}</td>
+        <td>
+          <form>
+            <button class="button is-primary">Increase Count</button>
+            <button class="button is-primary">Increase Count</button>
+            <button class="button is-primary">Increase Count</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

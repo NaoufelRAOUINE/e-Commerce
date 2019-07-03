@@ -35,8 +35,13 @@ class ProduitController extends AbstractController
             }
         ]);
         //var_dump($jsonContent);exit;
+        // $jsonContent='{"products":[{"id":1,"nom":"aza","prix":5}]}';
         $response = new Response($jsonContent);
-        $response->headers->set('Content-Type', 'application/json');
+        // $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        $response->headers->set('Access-Control-Allow-Headers' , 'Content-Type');
+
         return $response; 
     }
 }
