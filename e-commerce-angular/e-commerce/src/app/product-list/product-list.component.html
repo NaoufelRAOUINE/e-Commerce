@@ -1,5 +1,8 @@
-<div class="container">
+<div class="container" style="padding:70px">
+  <div>
   <span class="help is-info" *ngIf="isLoading">Loading...</span>
+  </div>
+  <a  class="Link" [routerLink]="['/creer-produit']" >Créer Un Nouveau Produit</a>
   <table class="table" *ngIf="!isLoading">
     <thead>
       <tr>
@@ -18,9 +21,9 @@
         <td>{{ product.poids }}</td>
         <td>
           <form>
-            <button class="button is-primary">Increase Count</button>
-            <button class="button is-primary">Increase Count</button>
-            <button class="button is-primary">Increase Count</button>
+            <button class="button is-primary">Modifier</button>
+            <button class="button is-primary">Supprimer</button>
+            <!-- <button class="button is-primary">Increase Count</button> -->
           </form>
         </td>
       </tr>

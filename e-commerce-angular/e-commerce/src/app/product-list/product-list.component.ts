@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, ProductService } from '../product.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 // import 'rxjs/Rx';
 
 @Component({
@@ -11,6 +13,7 @@ export class ProductListComponent implements OnInit {
   products: Product[];
   errorMessage: string;
   isLoading = true;
+  someForm: FormGroup;
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
@@ -29,5 +32,7 @@ export class ProductListComponent implements OnInit {
         error => this.errorMessage = error as any
       );
   }
+
+
 
 }

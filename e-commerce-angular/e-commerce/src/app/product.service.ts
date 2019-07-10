@@ -1,8 +1,7 @@
 import { Product } from './product.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 export interface Product {
   id: number;
@@ -17,16 +16,24 @@ export class ProductService {
   constructor(private http: HttpClient) {
    }
   getProducts() {
-    // const headers = new HttpHeaders({
+    return this.http.get('http://ecommerce.local:80/produit');
+
+  }
+  createProduct(data): Observable<any> {
+    console.log('data', data);
+    const body = 'nom=' + data.nom + '&prix=' + data.prix + '&poids=' + data.poids;
+
+    return this.http.post<any>('http://ecommerce.local:80/create_product',
+    body
+    // {body: data}
+    // , { headers: new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   // Accept: 'application/json',
     //   'Access-Control-Allow-Origin': '*',
     //   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-    //   'Access-Control-Allow-Headers' : 'Content-Type'
-    // });
-// http://ecommerce.local:80, { headers}
-    return this.http.get('http://ecommerce.local:80/produit');
-    // ).subscribe((res: any[]) => {
-    //   console.log(res);
-    //   this.products = res;
+    //   'Access-Control-Allow-Headers': 'origin, x-requested-with, content-type, Authorization'
+    // })}
+    );
 
   }
 }

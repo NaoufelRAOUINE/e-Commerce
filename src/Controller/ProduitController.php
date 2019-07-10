@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Produit;
 
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -43,5 +44,44 @@ class ProduitController extends AbstractController
         $response->headers->set('Access-Control-Allow-Headers' , 'Content-Type');
 
         return $response; 
+    }
+
+    /**
+     * @Route("/create_product", name="create_product",methods={"POST"})
+     */
+    public function createProduct(Request $request)
+    {
+        // $data=$request->get('body');
+
+        // return new Response('1');
+        
+        $params= array();
+        $query=$request->getContent();
+        foreach (explode('&', $query) as $chunk) {
+            $param = explode("=", $chunk);
+
+            if ($param) {
+                //printf("La valeur du paramètre \"%s\" est \"%s\"<br/>\n", urldecode($param[0]), urldecode($param[1]));
+                $params[urldecode($param[0])]=urldecode($param[1]);
+            }
+        }
+        
+
+        $entityManager = $this->getDoctrine()->getManager();
+        
+        $product = new Produit();
+        $product->setNom($params['nom']);
+        $product->setPrix($params['prix']);
+        $product->setPoids($params['poids']);
+
+        
+        $entityManager->persist($product);
+
+        $entityManager->flush();
+        $response = new Response('Saved new product with id '.$product->getId());
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        $response->headers->set('Access-Control-Allow-Headers' , 'Content-Type');
+        return $response;
     }
 }
