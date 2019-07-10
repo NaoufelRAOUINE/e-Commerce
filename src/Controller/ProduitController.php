@@ -59,9 +59,7 @@ class ProduitController extends AbstractController
         $query=$request->getContent();
         foreach (explode('&', $query) as $chunk) {
             $param = explode("=", $chunk);
-
             if ($param) {
-                //printf("La valeur du paramètre \"%s\" est \"%s\"<br/>\n", urldecode($param[0]), urldecode($param[1]));
                 $params[urldecode($param[0])]=urldecode($param[1]);
             }
         }
@@ -78,7 +76,8 @@ class ProduitController extends AbstractController
         $entityManager->persist($product);
 
         $entityManager->flush();
-        $response = new Response('Saved new product with id '.$product->getId());
+        $jsonContent = json_encode(['produit'=>'Saved new product with id '.$product->getId()]);
+        $response = new Response($jsonContent);
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
         $response->headers->set('Access-Control-Allow-Headers' , 'Content-Type');
